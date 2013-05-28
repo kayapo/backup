@@ -46,6 +46,10 @@ function mysql() {
 		post)
 			find ${BCKDIR} -type f -name '*.sql' -exec rm {} \;
 		;;
+		*)
+			echo "$1 hibas parameter megadas! Helyes: {pre|post}" 1>&2
+			exit 1
+		;;
 	esac
 	}
 
