@@ -1,0 +1,39 @@
+##
+##	Napi server mentes beallitofile
+##
+
+# A backup server cime
+export BACKUPSRV="backup02.logodi.ujotthon.hu"
+
+# A backup (rsync) target cime 
+# normal esetben a server fqdn -je, ahol a pontok helyen
+# alahuzas van
+export BACKUPTARGET="app_hiper_oc_hu"
+
+# A backup peldanyok szama
+export BACKUPNUM=3
+
+# Ezeket a konyvtarakat mentjuk
+# vesszokkel tagolt lista
+# A szokozoket escapelni kell
+export BACKUPDIRS="/etc /root /var/www/cluster/hiper /var/www/cluster/storage /var/www/cluster/tmp"
+
+# A mentes elott ezeket a scripteket kell futtatni
+# Ha ujat kell letrehozni annak a /usr/lib/backup/include
+# konyvtarban kell lennie. A file nevenek pint 
+# annak a nevnek kell lennie amit ide irsz.
+# Ne legyen a scriptnek kiterjesztese. A scriptben
+# a futtatando resznek egy fuggvenyben kell lennie
+# aminek ugyan az a neve mint a scriptnek. Nezd meg a meglevoeket,
+# hogy tudd hogyan kell mukodnie.
+export BACKUPSCRIPTS="pkglist"
+
+# A mentes ideiglenes filejainak a helye
+export BACKUPVAR="/var/lib/backup"
+
+# A mentes pid filejanak a helye
+export BACKUPPID="/var/run/backup.pid"
+
+# Az rsync parancs helye
+export RSYNC="/usr/bin/rsync"
+

@@ -1,0 +1,24 @@
+##
+##	pkglist
+##	kilistazzuk a telepitett csomagokat
+##	es elmentjuk a /var/tmp/ mappaba
+##	A mentendo fileok listajahoz hozzairjuk
+##	a file nevet
+##
+
+function pkglist() {
+	case "$1" in
+		pre)
+			/usr/bin/dpkg -l | /usr/bin/awk '/^ii/ {print $2}' | /usr/bin/tr "\n" " ">"$BACKUPVAR/pkglist"
+			BACKUPDIRS="$BACKUPDIRS $BACKUPVAR/pkglist"
+		;;
+		post)
+			rm "$BACKUPVAR/pkglist"
+		;;
+		*)
+			echo "$1 hibas parameter megadas! Helyes: {pre|post}" 1>&2
+			exit 1
+		;;
+	esac
+}
+

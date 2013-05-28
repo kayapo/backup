@@ -1,0 +1,22 @@
+##
+##	backupnum
+##	Bekuldjuk a serverre egy fileban,
+##	hogy hany peldanyt akarunk megorizni
+##
+
+function backupnum() {
+	case "$1" in
+		pre)
+			echo "BACKUPNUM=${BACKUPNUM}">"$BACKUPVAR/backupnum"
+			BACKUPDIRS="$BACKUPDIRS $BACKUPVAR/backupnum"
+		;;
+		post)
+			rm "$BACKUPVAR/backupnum"
+		;;
+		*)
+			echo "$1 hibas parameter megadas! Helyes: {pre|post}" 1>&2
+			exit 1
+		;;
+	esac
+}
+
