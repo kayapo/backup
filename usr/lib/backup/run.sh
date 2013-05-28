@@ -6,7 +6,7 @@ set -e
 SRCDIR=`dirname $0`
 
 # Elso dolgunk betolteni a configot
-source /etc/default/backup
+. /etc/default/backup
 
 # Ellenorizzuk, hogy letezik-e a pidfile
 if [ -f $BACKUPPID ]; then
@@ -51,4 +51,3 @@ for fv in $(echo $BACKUPSCRIPTS | tr "," "\n")
 rm "$BACKUPPID"
 
 exit 0
-

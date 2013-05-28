@@ -1,4 +1,9 @@
-#!/bin/bash
+##
+##	mysql
+##	Az osszes mysql adatbazist elmenti
+##	kulon konyvtarakba, kulon fileokba a letrehozo
+##	es kulon az adattartalom scripteket
+##
 
 function mysql() {
 	MYC="/usr/bin/mysql"
