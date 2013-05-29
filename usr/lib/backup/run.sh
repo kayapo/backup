@@ -37,8 +37,14 @@ for fv in $(echo $BACKUPSCRIPTS)
 	. "$SRCDIR/include/$fv" && "_$fv" pre
 	done
 
+# Oszerakjuk a kivetelek listajat az rsynchez
+for ex in $(echo $RSYNC_EXCLUDE)
+	do
+		REXCLUDE="--exclude ${ex} $REXCLUDE"
+	done
+
 # Indul a mentes
-/usr/bin/rsync -aSHWR --stats --delete-after $BACKUPDIRS "${BACKUPSRV}::${BACKUPTARGET}/0/"
+/usr/bin/rsync -aSHWR --stats $REXCLUDE --delete-after $BACKUPDIRS "${BACKUPSRV}::${BACKUPTARGET}/0/"
 
 # Miutan elkeszult a mentes takaritunk magunk utan
 for fv in $(echo $BACKUPSCRIPTS)
