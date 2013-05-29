@@ -5,7 +5,7 @@
 ##	es kulon az adattartalom scripteket
 ##
 
-function mysql() {
+function _mysql() {
 	MYC="/usr/bin/mysql"
 	MYA="/usr/bin/mysqladmin"
 	MYD="/usr/bin/mysqldump"
@@ -42,6 +42,7 @@ function mysql() {
 							--quick > "${BCKDIR}/${db}/${db}.${tbl}-data.sql"
 					done
 				done
+			BACKUPDIRS="$BACKUPDIRS ${BCKDIR}"
 		;;
 		post)
 			find ${BCKDIR} -type f -name '*.sql' -exec rm {} \;

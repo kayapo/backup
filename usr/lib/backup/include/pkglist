@@ -6,7 +6,7 @@
 ##	a file nevet
 ##
 
-function pkglist() {
+function _pkglist() {
 	case "$1" in
 		pre)
 			/usr/bin/dpkg -l | /usr/bin/awk '/^ii/ {print $2}' | /usr/bin/tr "\n" " ">"$BACKUPVAR/pkglist"

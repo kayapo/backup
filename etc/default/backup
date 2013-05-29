@@ -3,12 +3,12 @@
 ##
 
 # A backup server cime
-export BACKUPSRV="backup02.logodi.ujotthon.hu"
+export BACKUPSRV="%BCKSRV%"
 
 # A backup (rsync) target cime 
 # normal esetben a server fqdn -je, ahol a pontok helyen
 # alahuzas van
-export BACKUPTARGET="app_hiper_oc_hu"
+export BACKUPTARGET="%BCKT%"
 
 # A backup peldanyok szama
 export BACKUPNUM=3
@@ -16,7 +16,7 @@ export BACKUPNUM=3
 # Ezeket a konyvtarakat mentjuk
 # vesszokkel tagolt lista
 # A szokozoket escapelni kell
-export BACKUPDIRS="/etc /root /var/www/cluster/hiper /var/www/cluster/storage /var/www/cluster/tmp"
+export BACKUPDIRS="/etc /root"
 
 # A mentes elott ezeket a scripteket kell futtatni
 # Ha ujat kell letrehozni annak a /usr/lib/backup/include
@@ -36,4 +36,8 @@ export BACKUPPID="/var/run/backup.pid"
 
 # Az rsync parancs helye
 export RSYNC="/usr/bin/rsync"
+
+# A postgresql mentesehez meg kell adni
+# a clustert amit le akarunk menteni
+PG_CLUSTER="8.3/main"
 

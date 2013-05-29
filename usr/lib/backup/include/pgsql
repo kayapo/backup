@@ -1,0 +1,32 @@
+##
+##	pgsql
+##
+
+function _pgsql() {
+	BCKDIR="/var/backups/postgresql"
+	PSQL="/usr/bin/psql"
+	PGD="/usr/bin/pg_dump"
+
+	export PGUSER=postgres
+	case "$1" in
+		pre)
+			${PSQL} -qlAt --cluster "${PG_CLUSTER}" | cut -d "|" -f 1 | grep -v '^template' | while read db
+				do
+				[ -d "${BCKDIR}/${PG_CLUSTER}/${db}" ] || mkdir -m u=rwX,g=rwX,o=rX,g+s -p "${BCKDIR}/${PG_CLUSTER}/${db}"
+				${PGD} -sc ${db} -f "${BCKDIR}/${PG_CLUSTER}/${db}/${db}-create.sql"
+				${PSQL} -qAt --cluster "${PG_CLUSTER}" -c "\dt" -d "${db}" | cut -d "|" -f 2 | while read tbl
+					do
+						${PGD} -dDab -t ${tbl} ${db} -f "${BCKDIR}/${PG_CLUSTER}/${db}/${db}.${tbl}-data.sql"
+					done
+				done
+			BACKUPDIRS="$BACKUPDIRS ${BCKDIR}"
+		;;
+		post)
+			find ${BCKDIR} -type f -name '*.sql' -exec rm {} \;
+		;;
+		*)
+			echo "$1 hibas parameter megadas! Helyes: {pre|post}" 1>&2
+			exit 1
+		;;
+	esac
+}

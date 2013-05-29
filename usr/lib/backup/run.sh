@@ -31,19 +31,19 @@ echo $$>"$BACKUPPID"
 # Betoltjuk a mentes elott futtatando
 # fuggvenyeket minden fuggvenynek egyedi
 # nevvel kell rendelkeznie
-BACKUPSCRIPTS="backupnum, $BACKUPSCRIPTS"
-for fv in $(echo $BACKUPSCRIPTS | tr "," "\n")
+BACKUPSCRIPTS="backupnum $BACKUPSCRIPTS"
+for fv in $(echo $BACKUPSCRIPTS)
 	do
-	. "$SRCDIR/include/$fv" && $fv pre
+	. "$SRCDIR/include/$fv" && "_$fv" pre
 	done
 
 # Indul a mentes
 /usr/bin/rsync -aSHWR --stats --delete-after $BACKUPDIRS "${BACKUPSRV}::${BACKUPTARGET}/0/"
 
 # Miutan elkeszult a mentes takaritunk magunk utan
-for fv in $(echo $BACKUPSCRIPTS | tr "," "\n")
+for fv in $(echo $BACKUPSCRIPTS)
 	do
-	$fv post
+	. "$SRCDIR/include/$fv" && "_$fv" post
 	done
 
 # A futas vegen eltavolitjuk 
