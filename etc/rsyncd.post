@@ -1,0 +1,20 @@
+#!/bin/bash
+
+. ${RSYNC_MODULE_PATH}/0/var/lib/backup/backupnum
+
+if [ $BACKUPNUM -gt 99 ]; then
+	echo "Nem tudok ennyi mentest: $BACKUPNUM kezelni" 1>&2
+	exit 1
+fi
+
+[ -d "${RSYNC_MODULE_PATH}/${BACKUPNUM}" ] && rm -rf "${RSYNC_MODULE_PATH}/${BACKUPNUM}"
+
+for((d=$[$BACKUPNUM-1]; d>=0; d--)); do
+	if [ -d "${RSYNC_MODULE_PATH}/${d}" ]; then
+		e=$[${d}+1]
+		mv -v "${RSYNC_MODULE_PATH}/${d}" "${RSYNC_MODULE_PATH}/${e}">>/tmp/$$.env
+	fi
+	done
+
+cp -al "${RSYNC_MODULE_PATH}/1/" "${RSYNC_MODULE_PATH}/0/"
+
